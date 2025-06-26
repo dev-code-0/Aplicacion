@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel Principal - Zertic</title>
+  <link rel="stylesheet" href="../styles/style.css" />
+</head>
+<body>
+  <header class="panel-header">
+    <h2>Panel Principal</h2>
+    <div class="user-info">
+      <span id="user-name">Bienvenido, admin</span>
+      <button id="logout-btn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <div class="card">Total Ingresos<br><strong>S/ 0.00</strong></div>
+    <div class="card">Total Ventas<br><strong>S/ 0.00</strong></div>
+    <div class="card">Tus Ventas<br><strong>S/ 0.00</strong></div>
+
+    <div class="chart-placeholder">
+      <h3>Compras vs Ventas (Mensual)</h3>
+      <canvas id="chart" width="400" height="200"></canvas>
+    </div>
+  </main>
+
+  <!-- Librería para gráficas -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../scripts/panel.js"></script>
+</body>
+</html>
