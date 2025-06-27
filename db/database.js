@@ -1,3 +1,4 @@
+//db/database.js
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
@@ -26,6 +27,18 @@ db.serialize(() => {
       console.log('🟢 Usuario admin creado');
     }
   });
+
+   // 👉 NUEVA tabla de compras:
+  // db.run(`
+  //   CREATE TABLE IF NOT EXISTS compras (
+  //     id INTEGER PRIMARY KEY AUTOINCREMENT,
+  //     fecha TEXT,
+  //     producto TEXT,
+  //     cantidad INTEGER,
+  //     precio REAL,
+  //     descripcion TEXT
+  //   )
+  // `);
 });
 
 module.exports = db;

@@ -1,41 +1,63 @@
-const { app, BrowserWindow } = require('electron');
+
+//main.js
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const remoteMain = require('@electron/remote/main');
+const db = require('./db/database');
 
-// Inicializar el módulo remote
-remoteMain.initialize();
+let mainWindow;
 
-function createWindow(file = 'views/index.html') {
-  const win = new BrowserWindow({
+function createWindow(file = './views/index.html') {
+  mainWindow = new BrowserWindow({
     width: 1000,
     height: 700,
+    minWidth: 700,    // nunca podrá ser más estrecha
+    minHeight: 600,   // nunca podrá ser más baja
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,          // permite usar require() en los .js de frontend
-      contextIsolation: false         // necesario junto con nodeIntegration para que funcione remote
-    },
+      contextIsolation: true,
+      nodeIntegration: false
+    }
   });
+console.log('🔁 Cambiando a panel.html');
 
-  // Habilitar @electron/remote para esta ventana
-  remoteMain.enable(win.webContents);
-
-  // Cargar archivo HTML (por defecto index)
-  win.loadFile(file);
-  win.webContents.openDevTools(); // ← Abre automáticamente las herramientas
-
+  mainWindow.loadFile(file);
+  mainWindow.webContents.openDevTools(); // opcional
 }
 
-// Crear ventana al iniciar
 app.whenReady().then(() => {
   createWindow();
 
+  ipcMain.on('validar-login', (event, { usuario, clave }) => {
+    db.get(
+      'SELECT * FROM usuarios WHERE nombre = ? AND clave = ?',
+      [usuario, clave],
+      (err, row) => {
+        if (err) {
+          console.error('Error DB:', err.message);
+          return;
+        }
+
+        if (row) {
+          console.log('🧠 Validando login:', usuario, clave);
+
+          event.sender.send('login-correcto');
+          mainWindow.loadFile('./views/panel.html');
+        } else {
+          event.sender.send('login-incorrecto');
+        }
+      }
+    );
+  });
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
 
-// Cerrar la app completamente cuando todas las ventanas están cerradas (excepto en Mac)
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
+});
+
+ipcMain.on('cerrar-app', () => {
+  app.quit(); // 👈 esto cierra toda la app
 });

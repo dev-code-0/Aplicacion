@@ -1,17 +1,23 @@
-window.addEventListener("DOMContentLoaded", () => {
-  const logoutBtn = document.getElementById("logout-btn");
-
+//scripts/panel
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.getElementById('logout-btn');
   if (logoutBtn) {
-    const { remote } = require("@electron/remote");
-    const path = require("path");
-
-    logoutBtn.addEventListener("click", () => {
-      let win = remote.getCurrentWindow();
-      win.loadFile(path.join(__dirname, "../views/index.html"));
+    logoutBtn.addEventListener('click', () => {
+      window.electronAPI.cerrarApp();
     });
   }
 
-  // Gráfico de ejemplo
+  const toggle = document.getElementById('toggle-theme');
+toggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme') || 'light';
+  html.setAttribute(
+    'data-theme',
+    current === 'dark' ? 'light' : 'dark'
+  );
+});
+
+  // Chart.js
   const canvas = document.getElementById("chart");
   if (canvas) {
     const ctx = canvas.getContext("2d");

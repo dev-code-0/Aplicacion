@@ -1,32 +1,56 @@
+<!-- views/panel.html -->
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
+
 <head>
   <meta charset="UTF-8" />
   <title>Panel Principal - Zertic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="../styles/style.css" />
 </head>
+
 <body>
-  <header class="panel-header">
-    <h2>Panel Principal</h2>
-    <div class="user-info">
-      <span id="user-name">Bienvenido, admin</span>
-      <button id="logout-btn">Cerrar sesión</button>
-    </div>
-  </header>
+  <div class="container">
+    <aside class="sidebar">
+      <nav class="menu">
+        <a href="panel.html">Panel</a>
+        <a href="compras.html">Compras</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="servicios.html">Servicios</a>
+      </nav>
+    </aside>
 
-  <main class="dashboard">
-    <div class="card">Total Ingresos<br><strong>S/ 0.00</strong></div>
-    <div class="card">Total Ventas<br><strong>S/ 0.00</strong></div>
-    <div class="card">Tus Ventas<br><strong>S/ 0.00</strong></div>
+    <div class="main-content">
+      <header class="panel-header">
+        <h2>Panel Principal</h2>
+        <div class="user-info">
+          <span id="user-name">admin</span>
+        </div>
+        <button id="logout-btn">Cerrar sesión</button>
+        <button id="toggle-theme" aria-label="Cambiar tema">
+          <i class="fas fa-sun icon-sun"></i>
+          <i class="fas fa-moon icon-moon"></i>
+        </button>
 
-    <div class="chart-placeholder">
-      <h3>Compras vs Ventas (Mensual)</h3>
-      <canvas id="chart" width="400" height="200"></canvas>
+      </header>
+
+      <main class="dashboard">
+        <div class="card">Total Ingresos<br><strong>S/ 0.00</strong></div>
+        <div class="card">Total Ventas<br><strong>S/ 0.00</strong></div>
+        <div class="card">Tus Ventas<br><strong>S/ 0.00</strong></div>
+
+        <div class="chart-placeholder">
+          <h3>Compras vs Ventas (Mensual)</h3>
+          <canvas id="chart" width="400" height="200"></canvas>
+        </div>
+      </main>
     </div>
-  </main>
+  </div>
 
   <!-- Librería para gráficas -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../scripts/panel.js"></script>
 </body>
+
 </html>
