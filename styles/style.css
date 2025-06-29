@@ -267,7 +267,7 @@ html, body {
   display: inline;
 }
 
-/* Ajustes visuales del botón */
+/* Ajustes visuales del botón de cambiar tema*/
 #toggle-theme {
   background: transparent;
   border: 1px solid var(--color-texto);
@@ -281,6 +281,8 @@ html, body {
 #toggle-theme:hover {
   background: rgba(255,255,255,0.1);
 }
+
+
 
 
 
